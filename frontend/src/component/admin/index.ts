@@ -1,0 +1,8 @@
+export {default as AddProduct} from "./AddProduct"
+export {default as AddUser} from "./AddUser"
+export {default as AdminSidebar} from "./AdminSidebar"
+export {default as Analytics} from "./Analytics"
+export {default as DashboardOverview} from "./DashboardOverview"
+export {default as OrderManagement} from "./OrderManagement"
+export {default as ProductManagement} from "./ProductManagement"
+export {default as UserManagement} from "./UserManagement"
