@@ -2,7 +2,7 @@ import { art, interior2 } from "../assets";
 
 const HeroSection = () => {
   return (
-    <section className="bg-yellow-200 relative py-8 px-4 md:px-12 overflow-hidden -mt-[8.8rem]">
+    <section className="bg-yellow-200 relative py-8 px-4 md:px-12 overflow-hidden -mt-[10.8rem] lg:-mt-[10.2rem]">
       <div className="absolute inset-0 border-y-8 border-yellow-400 pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto grid md:grid-cols-3 items-center gap-8">
@@ -10,8 +10,8 @@ const HeroSection = () => {
         <div className="relative w-full h-72 md:h-96">
           <img
             src={art}
-            alt="Logo Design Sample"
-            className="absolute inset-0 w-full h-full object-cover rounded z-10"
+            alt="art"
+            className="absolute inset-0 w-full h-full object-cover rounded-lg z-10"
           />
         </div>
 
@@ -33,7 +33,7 @@ const HeroSection = () => {
           <img
             src={interior2}
             alt="Creative Work"
-            className="absolute inset-0 w-full h-full object-cover rounded z-10"
+            className="absolute inset-0 w-full h-full object-cover rounded-lg z-10"
           />
         </div>
       </div>

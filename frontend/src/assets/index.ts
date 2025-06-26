@@ -18,7 +18,10 @@ export { default as exploreBg } from "./explore.jpg";
 export { default as interior2 } from "./interior2.jpg";
 export { default as Avatar } from "./avatar.png";
 export { default as plus } from "./plus.png";
-
+export { default as furnitureIcon } from "./furniture-icon.png";
+export { default as decorIcon } from "./decor-icon.png";
+export { default as frameIcon } from "./frame-icon.png";
+export { default as paintingIcon } from "./painting-icon.png";
 
 
 

@@ -1,37 +1,33 @@
-import { download, owner, support, template } from "../assets";
+import { decorIcon, frameIcon, furnitureIcon, paintingIcon } from "../assets";
 
 type Feature = {
   icon: string;
   title: string;
   description: string;
-  // linkText: string;
 };
 
 const features: Feature[] = [
   {
-    icon: template,
-    title: "Ready-to-Use Templates",
+    icon: frameIcon,
+    title: "Elegant Frames",
     description:
-      "Choose from hundreds of professionally designed logo templates",
-    // linkText: "Browse Templates",
+      "High-quality frames to complement your art and interior style",
   },
   {
-    icon: download,
-    title: "Instant Download",
-    description: "Get your logo files immediately after purchase",
-    // linkText: "How it works",
+    icon: paintingIcon,
+    title: "Original Paintings",
+    description: "Discover unique artworks crafted by talented artists",
   },
   {
-    icon: owner,
-    title: "Full Ownership Rights",
-    description: "You get complete commercial rights to use your logo anywhere",
-    // linkText: "Learn more",
+    icon: decorIcon,
+    title: "Chic Home Decor",
+    description:
+      "Modern and traditional pieces to personalize your living space",
   },
   {
-    icon: support,
-    title: "Creative Guidance",
-    description: "Need help? Our branding experts are here to assist you",
-    // linkText: "Get Support",
+    icon: furnitureIcon,
+    title: "Stylish Furniture",
+    description: "Functional and stylish furniture to enhance your home",
   },
 ];
 
@@ -50,12 +46,6 @@ const Infofeatures = () => {
               {feature.title}
             </h3>
             <p className="text-sm text-gray-600 mt-1">{feature.description}</p>
-            {/* <a
-              href="#"
-              className="text-sm font-semibold text-indigo-950 mt-2 inline-block hover:underline"
-            >
-              {feature.linkText}
-            </a> */}
           </div>
         ))}
       </div>

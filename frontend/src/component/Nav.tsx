@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../redux/store";
 import { clearUser as logoutAction } from "../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import AnimatedLogo from "./AnimatedLogo";
 
 const allNavItems = [
   { label: "Home", href: "/" },
@@ -165,12 +166,14 @@ export default function Navbar() {
             >
               <Menu size={24} />
             </button>
-            <div className="flex items-center space-x-2 ">
-              <a href="/">
-                <img src={logo} alt="logo" className="w-12 h-12 " />
-              </a>
-              <span className="text-xl font-bold uppercase">Cactus</span>
-            </div>
+            <a href="/" className="flex items-center space-x-2 ">
+              <img
+                src={logo}
+                alt="logo"
+                className="w-10 h-10 lg:w-12 lg:h-12 "
+              />
+              <AnimatedLogo />
+            </a>
           </div>
 
           <form onSubmit={handleSearch} className="flex-1 mx-4 hidden md:block">
@@ -213,7 +216,10 @@ export default function Navbar() {
           </div>
         </div>
 
-        <form onSubmit={handleMobileSearch} className="md:hidden px-4 pb-3">
+        <form
+          onSubmit={handleMobileSearch}
+          className="md:hidden px-4 pb-3 mt-2"
+        >
           <div className="relative">
             <input
               type="text"
@@ -228,7 +234,7 @@ export default function Navbar() {
           </div>
         </form>
 
-        <div className="hidden md:block">
+        <div className="hidden md:block mt-2.5">
           <ul className="max-w-6xl mx-auto flex justify-between px-4 py-3">
             {allNavItems
               .filter((item) => !item.showInTopRight)
