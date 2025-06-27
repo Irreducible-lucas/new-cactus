@@ -55,7 +55,7 @@ export default function Cart() {
               <div className="flex-1 space-y-1">
                 <h3 className="text-lg font-medium">{item.name}</h3>
                 <p className="text-gray-600 text-sm">{item.category}</p>
-                <p className="text-gray-800 font-semibold">${item.price}</p>
+                <p className="text-gray-800 font-semibold">₦{item.price}</p>
               </div>
 
               <div className="flex items-center gap-2">
@@ -94,7 +94,7 @@ export default function Cart() {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span>₦{subtotal.toFixed(2)}</span>
             </div>
             {/* <div className="flex justify-between">
               <span>Shipping</span>
@@ -107,7 +107,7 @@ export default function Cart() {
             <hr />
             <div className="flex justify-between font-bold text-lg">
               <span>Total</span>
-              <span>${total.toFixed(2)}</span>
+              <span>₦{total.toFixed(2)}</span>
             </div>
           </div>
 

@@ -1,9 +1,7 @@
 import {
-  ChartBarIcon,
   UsersIcon,
   ShoppingBagIcon,
   CubeIcon,
-  ClipboardIcon,
   ArrowLeftOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 import { useDispatch } from "react-redux";
@@ -44,18 +42,6 @@ const AdminSidebar = ({ activeTab, setActiveTab }: AdminSidebarProps) => {
       </div>
 
       <nav className="space-y-1">
-        {/* <button
-          onClick={() => setActiveTab("overview")}
-          className={`flex items-center w-full px-3 py-2 text-sm font-medium rounded-md ${
-            activeTab === "overview"
-              ? "bg-indigo-50 text-indigo-700"
-              : "text-gray-600 hover:bg-gray-100"
-          }`}
-        >
-          <ChartBarIcon className="h-5 w-5 mr-3" />
-          Overview
-        </button> */}
-
         <button
           onClick={() => setActiveTab("users")}
           className={`flex items-center w-full px-3 py-2 text-sm font-medium rounded-md ${
@@ -91,18 +77,6 @@ const AdminSidebar = ({ activeTab, setActiveTab }: AdminSidebarProps) => {
           <ShoppingBagIcon className="h-5 w-5 mr-3" />
           Order Management
         </button>
-
-        {/* <button
-          onClick={() => setActiveTab("analytics")}
-          className={`flex items-center w-full px-3 py-2 text-sm font-medium rounded-md ${
-            activeTab === "analytics"
-              ? "bg-indigo-50 text-indigo-700"
-              : "text-gray-600 hover:bg-gray-100"
-          }`}
-        >
-          <ClipboardIcon className="h-5 w-5 mr-3" />
-          Analytics
-        </button> */}
 
         <div className="border-t border-gray-200 my-2"></div>
 

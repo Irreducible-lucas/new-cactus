@@ -112,7 +112,7 @@ export default function FavoritesPage() {
                       </h3>
                     </div>
                     <p className="text-sm font-medium text-gray-900">
-                      ${Number(item.price).toFixed(2)}
+                      ₦{Number(item.price).toFixed(2)}
                     </p>
                   </div>
 

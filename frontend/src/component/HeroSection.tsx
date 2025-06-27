@@ -2,7 +2,7 @@ import { art, interior2 } from "../assets";
 
 const HeroSection = () => {
   return (
-    <section className="bg-yellow-200 relative py-8 px-4 md:px-12 overflow-hidden -mt-[10.8rem] lg:-mt-[10.2rem]">
+    <section className="bg-yellow-200 relative py-8 px-4 md:px-12 overflow-hidden -mt-[7.6rem] lg:-mt-[7.2rem]">
       <div className="absolute inset-0 border-y-8 border-yellow-400 pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto grid md:grid-cols-3 items-center gap-8">

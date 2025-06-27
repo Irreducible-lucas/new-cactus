@@ -20,7 +20,7 @@ export default function Checkout() {
   const tax = subtotal * 0.08;
   const total = subtotal + shipping + tax;
 
-  const publicKey = "pk_test_a324f7655040cda386f0a8039d172ac0e292b376";
+  const publicKey = "pk_live_ef447a62083e421df914f403330c64e4fdb9b960";
   const email = user?.email || "";
 
   const handleSuccess = async () => {
@@ -40,7 +40,7 @@ export default function Checkout() {
     email,
     amount: Math.round(total * 100),
     publicKey,
-    text: `Pay $${total.toFixed(2)}`,
+    text: `Pay ₦${total.toFixed(2)}`,
     onSuccess: handleSuccess,
     onClose: () => alert("Payment closed."),
   };
@@ -79,10 +79,10 @@ export default function Checkout() {
                   <h3 className="text-lg font-medium">{item.name}</h3>
                   <p className="text-gray-600 text-sm">{item.category}</p>
                   <p className="text-gray-800 font-semibold">
-                    ${Number(item.price).toFixed(2)} × {item.quantity}
+                    ₦{Number(item.price).toFixed(2)} × {item.quantity}
                   </p>
                   <p className="text-sm text-gray-500">
-                    Total: ${(Number(item.price) * item.quantity).toFixed(2)}
+                    Total: {(Number(item.price) * item.quantity).toFixed(2)}
                   </p>
                 </div>
               </div>

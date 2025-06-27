@@ -38,7 +38,7 @@ export default function Order() {
                 <h3 className="text-lg font-medium">{item.name}</h3>
                 <p className="text-gray-600 text-sm">{item.category}</p>
                 <p className="text-gray-800">
-                  ${item.price} × {item.quantity}
+                  ₦{item.price} × {item.quantity}
                 </p>
                 <p className="text-gray-500 text-sm mt-1">
                   Order ID: {order._id}

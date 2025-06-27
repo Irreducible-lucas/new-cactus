@@ -182,12 +182,11 @@ export const footerLinks: FooterProps[] = [
   },
   {
     title: "Social Media",
-    links: ["Facebook","Instagram", "Twitter",  "TikTok"],
+    links: ["TikTok", "Whatsapp"],     // "Facebook","Instagram", "Twitter",
     urls: [
-      "https://www.facebook.com/share/19tynZHr8R/?mibextid=wwXIfr",
-      "https://x.com/WIM854",
-      "https://www.instagram.com/wimwheels?igsh=MWprbWN3NTUwaDZqdg%3D%3D&utm_source=qr",
-      "https://www.tiktok.com/@wheelsinmotion58?_t=ZM-8t58Lj9c14A&_r=1",
+      "https://www.tiktok.com/@cactuss929?_t=ZM-8xS67WuJmAo&_r=1",
+      "https://wa.me/2348065137683"
+
     ],
   },
   {

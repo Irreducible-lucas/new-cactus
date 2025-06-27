@@ -96,7 +96,7 @@ const ProductDetails = () => {
   return (
     <div className="flex flex-col md:flex-row gap-6 p-6 lg:gap-x-10 bg-white min-h-screen mt-10">
       {/* Main Image and Thumbnails Wrapper */}
-      <div className="flex flex-col-reverse md:flex-row gap-4 items-center md:items-start">
+      <div className="flex flex-col-reverse md:flex-row gap-4 gap-x-7 items-center md:items-start">
         {/* Thumbnails */}
         <div className="flex flex-row-reverse flex-wrap md:flex-col gap-4 justify-center md:justify-start">
           {images.map((src, index) => (
@@ -127,7 +127,7 @@ const ProductDetails = () => {
         </h1>
 
         <p className="text-3xl font-bold text-gray-900 mt-5">
-          ${product.price}
+          ₦{product.price}
         </p>
 
         <div className="my-8">

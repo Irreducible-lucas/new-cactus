@@ -114,7 +114,7 @@ const ProductManagement = () => {
                     />
                   </td>
                   <td className="px-6 py-4">{product.title}</td>
-                  <td className="px-6 py-4">${product.price}</td>
+                  <td className="px-6 py-4">₦{product.price}</td>
                   <td className="px-6 py-4">{product.size?.label || "N/A"}</td>
                   <td className="px-6 py-4">{product.rating}</td>
                   <td className="px-6 py-4">{product.productType}</td>

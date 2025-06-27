@@ -7,8 +7,33 @@ import {
 
 const ORDERS_PER_PAGE = 5;
 
+type OrderItem = {
+  id: string;
+  name: string;
+  quantity: number;
+  price: number;
+};
+
+type UserInfo = {
+  username?: string;
+  email?: string;
+  phone?: string;
+};
+
+type Order = {
+  _id: string;
+  user?: UserInfo;
+  items: OrderItem[];
+  createdAt: string;
+};
+
 const OrderManagement = () => {
-  const { data: orders, isLoading, error, refetch } = useGetOrdersQuery();
+  const {
+    data: orders = [],
+    isLoading,
+    error,
+    refetch,
+  } = useGetOrdersQuery({});
   const [deleteOrder, { isLoading: isDeleting }] = useDeleteOrderMutation();
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -23,8 +48,8 @@ const OrderManagement = () => {
     }
   };
 
-  const totalPages = orders ? Math.ceil(orders.length / ORDERS_PER_PAGE) : 1;
-  const paginatedOrders = orders?.slice(
+  const totalPages = Math.ceil(orders.length / ORDERS_PER_PAGE);
+  const paginatedOrders = orders.slice(
     (currentPage - 1) * ORDERS_PER_PAGE,
     currentPage * ORDERS_PER_PAGE
   );
@@ -71,10 +96,11 @@ const OrderManagement = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {paginatedOrders?.map((order) => {
+            {paginatedOrders.map((order: Order) => {
               const customer = order.user || {};
-              const total = order.items?.reduce(
-                (sum, item) => sum + item.price * item.quantity,
+              const total = order.items.reduce(
+                (sum: number, item: OrderItem) =>
+                  sum + item.price * item.quantity,
                 0
               );
 
@@ -96,16 +122,16 @@ const OrderManagement = () => {
                     {new Date(order.createdAt).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
-                    $
-                    {total?.toLocaleString(undefined, {
+                    ₦
+                    {total.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                     })}
                   </td>
                   <td className="py-4 text-sm text-gray-700">
                     <ul className="list-disc pl-3 space-y-2">
-                      {order.items.map((item) => (
+                      {order.items.map((item: OrderItem) => (
                         <li key={item.id}>
-                          {item.name} × {item.quantity} — ${item.price}
+                          {item.name} × {item.quantity} — ₦{item.price}
                         </li>
                       ))}
                     </ul>

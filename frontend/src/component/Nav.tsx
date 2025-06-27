@@ -263,7 +263,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      <div className="h-[150px]" />
+      <div className="h-[125px]" />
 
       {isDrawerOpen && (
         <div className="fixed inset-0 z-50 flex">
