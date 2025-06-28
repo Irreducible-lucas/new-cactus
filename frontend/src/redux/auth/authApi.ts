@@ -1,3 +1,5 @@
+// src/redux/auth/authApi.ts
+
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getBaseUrl } from '../../util/baseURL';
 
@@ -7,6 +9,7 @@ interface User {
   email: string;
   phone?: string;
   role: 'admin' | 'user';
+  createdAt: string;
   [key: string]: any;
 }
 
@@ -133,10 +136,7 @@ const authApi = createApi({
       }),
     }),
 
-    resetPassword: builder.mutation<
-      { success: boolean; message: string },
-      { token: string; password: string }
-    >({
+    resetPassword: builder.mutation<{ success: boolean; message: string }, { token: string; password: string }>({
       query: ({ token, password }) => ({
         url: `/reset-password/${token}`,
         method: 'POST',
@@ -149,7 +149,7 @@ const authApi = createApi({
 export const {
   useRegisterUserMutation,
   useLoginUserMutation,
-  useGoogleLoginUserMutation, // ✅ newly added
+  useGoogleLoginUserMutation,
   useLogoutUserMutation,
   useGetUsersQuery,
   useDeleteUserMutation,

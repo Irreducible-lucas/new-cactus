@@ -25,22 +25,22 @@ export const reviewApi = createApi({
     baseUrl: `${getBaseUrl()}/api/reviews`,
     credentials: 'include',
   }),
-  tagTypes: ["Reviews"],
+  tagTypes: ['Reviews'],
   endpoints: (builder) => ({
     postReview: builder.mutation<void, ReviewData>({
       query: (reviewData) => ({
-        url: "/post-review",
-        method: "POST",
+        url: '/post-review',
+        method: 'POST',
         body: reviewData,
       }),
-      invalidatesTags: (result, error, { productId }) => [
-        { type: "Reviews", id: productId },
+      invalidatesTags: (_result, _error, { productId }) => [
+        { type: 'Reviews', id: productId },
       ],
     }),
 
     getReviewsCount: builder.query<ReviewCountResponse, void>({
       query: () => ({
-        url: "/total-reviews",
+        url: '/total-reviews',
       }),
     }),
 
@@ -48,16 +48,16 @@ export const reviewApi = createApi({
       query: (userId) => ({
         url: `/${userId}`,
       }),
-      providesTags: (result, error, arg) =>
-        result ? [{ type: "Reviews", id: arg }] : [],
+      providesTags: (_result, _error, arg) =>
+        arg ? [{ type: 'Reviews', id: arg }] : [],
     }),
 
     getReviewsByProductId: builder.query<Review[], string>({
       query: (productId) => ({
         url: `/product/${productId}`,
       }),
-      providesTags: (result, error, productId) =>
-        result ? [{ type: "Reviews", id: productId }] : [],
+      providesTags: (_result, _error, productId) =>
+        productId ? [{ type: 'Reviews', id: productId }] : [],
     }),
   }),
 });

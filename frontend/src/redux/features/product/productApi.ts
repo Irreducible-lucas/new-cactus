@@ -15,7 +15,7 @@ interface Product {
   updatedAt: string;
 }
 
-interface CreateProduct extends Omit<Product, '_id' | 'createdAt' | 'updatedAt'> {}
+// Removed unused CreateProduct interface
 
 const productsApi = createApi({
   reducerPath: 'productsApi',
@@ -32,12 +32,12 @@ const productsApi = createApi({
 
     fetchProductById: builder.query<Product, string>({
       query: (id) => `${id}`,
-      providesTags: (result, error, id) => [{ type: 'Products', id }],
+      providesTags: (_result, _error, id) => [{ type: 'Products', id }],
     }),
 
     fetchRelatedProducts: builder.query<Product[], string>({
       query: (id) => `related/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Products', id: `RELATED-${id}` }],
+      providesTags: (_result, _error, id) => [{ type: 'Products', id: `RELATED-${id}` }],
     }),
 
     fetchRandomProducts: builder.query<Product[], number | void>({
@@ -45,19 +45,16 @@ const productsApi = createApi({
       providesTags: ['Products'],
     }),
 
-    // ✅ Fixed endpoint to match backend route: /type/:productType
     fetchProductsByType: builder.query<Product[], string>({
       query: (type) => `type/${type}`,
       providesTags: ['Products'],
     }),
 
     searchProducts: builder.query<Product[], string>({
-  query: (searchQuery) => `search?q=${encodeURIComponent(searchQuery)}`,
-  providesTags: ['Products'],
-}),
+      query: (searchQuery) => `search?q=${encodeURIComponent(searchQuery)}`,
+      providesTags: ['Products'],
+    }),
 
-
-    // Assumes you're sending a FormData object
     createProduct: builder.mutation<Product, FormData>({
       query: (formData) => ({
         url: 'create-product',
@@ -73,7 +70,7 @@ const productsApi = createApi({
         method: 'PATCH',
         body: updateData,
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: 'Products', id }],
+      invalidatesTags: (_result, _error, { id }) => [{ type: 'Products', id }],
     }),
 
     deleteProduct: builder.mutation<{ message: string }, string>({

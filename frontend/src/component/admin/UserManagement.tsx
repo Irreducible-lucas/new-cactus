@@ -1,10 +1,12 @@
+// src/components/admin/UserManagement.tsx
+
 import { UsersIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import AddUser from "./AddUser";
 import {
   useGetUsersQuery,
   useDeleteUserMutation,
   useUpdateUserRoleMutation,
-} from "../../redux/auth/authApi"; // adjust the path if needed
+} from "../../redux/auth/authApi";
 
 interface User {
   _id: string;
@@ -20,7 +22,7 @@ const UserManagement = () => {
   const [updateUserRole, { isLoading: isUpdatingRole }] =
     useUpdateUserRoleMutation();
 
-  const users: User[] = data?.data || [];
+  const users: User[] = data || [];
 
   const formatDate = (date: string) => {
     const parsedDate = new Date(date);
