@@ -31,12 +31,7 @@ const ExploreDesign = () => {
     isError: productsError,
   } = useFetchAllProductsQuery();
 
-  const { data: favoriteData, isSuccess: favSuccess } = useGetFavoritesQuery(
-    undefined,
-    {
-      skip: false, // fetch if user exists
-    }
-  );
+  const { data: favoriteData } = useGetFavoritesQuery(undefined); // ✅ Fixed
 
   const [addFavorite] = useAddFavoriteMutation();
   const [removeFavorite] = useRemoveFavoriteMutation();
@@ -63,9 +58,13 @@ const ExploreDesign = () => {
 
   useEffect(() => {
     if (Array.isArray(favorites)) {
-      const ids = favorites.map(
-        (fav: { _id?: string; productId?: string }) => fav._id ?? fav.productId
-      );
+      const ids = favorites
+        .map(
+          (fav: { _id?: string; productId?: string }) =>
+            fav._id ?? fav.productId
+        )
+        .filter((id): id is string => typeof id === "string"); // ✅ Filter out undefined
+
       setFavoriteSet(new Set(ids));
     }
   }, [favorites]);
@@ -90,7 +89,7 @@ const ExploreDesign = () => {
       }
     } catch (error) {
       console.error("Error toggling favorite:", error);
-      setFavoriteSet(new Set(favoriteSet)); // revert to original state
+      setFavoriteSet(new Set(favoriteSet)); // revert to original
     }
   };
 

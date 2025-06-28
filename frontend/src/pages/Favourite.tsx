@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   useGetFavoritesQuery,
   useRemoveFavoriteMutation,
@@ -8,18 +8,45 @@ import {
 import { addToCart } from "../redux/cart/cartSlice";
 import { ShoppingCart } from "lucide-react";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
+import type { RootState } from "../redux/store";
 
+// Define the shape of Favorite items
 type FavoriteItem = {
   _id: string;
   title: string;
-  category: string;
+  category: string; // expecting "frame" | "painting" | "decor" | "furniture"
   price: number;
-  image: string[]; // assuming it's an array of image URLs
+  image: string[]; // array of image URLs
 };
+
+// Helper function to convert FavoriteItem to CartItem
+function convertToCartItem(item: FavoriteItem) {
+  const validCategories = ["frame", "painting", "decor", "furniture"] as const;
+  const category = validCategories.includes(item.category as any)
+    ? (item.category as (typeof validCategories)[number])
+    : "decor"; // fallback category
+
+  return {
+    id: item._id,
+    name: item.title,
+    category,
+    price: item.price,
+    image: item.image?.[0] || "",
+    quantity: 1,
+  };
+}
 
 export default function FavoritesPage() {
   const dispatch = useDispatch();
-  const { data, isLoading, error } = useGetFavoritesQuery();
+
+  // Get user ID from Redux store
+  const userId = useSelector((state: RootState) => state.auth.user?._id);
+
+  // Fetch favorites, skip if no userId
+  const { data, isLoading, error } = useGetFavoritesQuery(userId!, {
+    skip: !userId,
+  });
+
   const [removeFavorite] = useRemoveFavoriteMutation();
   const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
 
@@ -39,15 +66,7 @@ export default function FavoritesPage() {
   };
 
   const handleAddToCart = (item: FavoriteItem) => {
-    dispatch(
-      addToCart({
-        id: item._id,
-        name: item.title,
-        price: item.price,
-        image: item.image?.[0],
-        quantity: 1,
-      })
-    );
+    dispatch(addToCart(convertToCartItem(item)));
   };
 
   return (
@@ -85,16 +104,16 @@ export default function FavoritesPage() {
                 key={item._id}
                 className="bg-white rounded-lg shadow overflow-hidden group relative"
               >
-                {/* Favorite Icon */}
+                {/* Remove Favorite Icon */}
                 <button
                   onClick={() => handleRemoveFavorite(item._id)}
-                  className="absolute top-3 right-3 z-10 p-1.5  hover:bg-red-100 text-red-600"
+                  className="absolute top-3 right-3 z-10 p-1.5 hover:bg-red-100 text-red-600"
                   title="Remove from favorites"
                 >
                   <HeartSolid className="w-5 h-5" />
                 </button>
 
-                {/* Image */}
+                {/* Product Image */}
                 <div className="relative">
                   <img
                     className="w-full h-48 object-cover object-center"
@@ -103,7 +122,7 @@ export default function FavoritesPage() {
                   />
                 </div>
 
-                {/* Details */}
+                {/* Product Info */}
                 <div className="p-4">
                   <div className="flex justify-between items-start mb-2">
                     <div>

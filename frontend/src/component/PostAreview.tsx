@@ -28,12 +28,13 @@ const PostAReview: React.FC<PostAReviewProps> = ({
     if (!user || !user._id) return alert("Please log in first.");
     if (!comment.trim() || rating === 0)
       return alert("Please enter both rating and comment.");
+    if (!productId) return alert("Invalid product. Please try again.");
 
     const newReview = {
       comment: comment.trim(),
       rating,
       userId: user._id,
-      productId,
+      productId, // ✅ now guaranteed to be string
     };
 
     try {
@@ -41,7 +42,7 @@ const PostAReview: React.FC<PostAReviewProps> = ({
       alert("Review posted successfully!");
       setComment("");
       setRating(0);
-      refetchReviews(); // refresh the review list
+      refetchReviews();
       handleClose();
     } catch (error: any) {
       alert(error?.data?.message || "Error submitting review.");

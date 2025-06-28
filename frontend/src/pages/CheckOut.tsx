@@ -24,6 +24,11 @@ export default function Checkout() {
   const email = user?.email || "";
 
   const handleSuccess = async () => {
+    if (!user) {
+      console.error("User not found");
+      return;
+    }
+
     try {
       await createOrder({
         user: user._id,
@@ -44,6 +49,19 @@ export default function Checkout() {
     onSuccess: handleSuccess,
     onClose: () => alert("Payment closed."),
   };
+
+  if (!user) {
+    return (
+      <div className="min-h-screen p-8 text-center">
+        <h2 className="text-2xl font-bold mb-4">
+          You must be logged in to checkout.
+        </h2>
+        <Link to="/login" className="text-blue-600 underline">
+          Go to Login
+        </Link>
+      </div>
+    );
+  }
 
   if (cartItems.length === 0) {
     return (

@@ -11,14 +11,16 @@ const HomeDecor = () => {
   const homeDecorProducts =
     products?.filter((p) => p.productType.toLowerCase() === "home decor") || [];
 
-  // Randomize and pick a few
+  // Shuffle and map to match ProductSlider type
   const getRandomSubset = (arr: typeof homeDecorProducts, count: number) => {
     return [...arr]
       .sort(() => Math.random() - 0.5)
       .slice(0, count)
       .map((product) => ({
-        ...product,
-        id: product._id, // Map _id → id
+        id: product._id, // convert _id (string) to id
+        title: product.title,
+        image: Array.isArray(product.image) ? product.image[0] : product.image,
+        price: product.price,
       }));
   };
 

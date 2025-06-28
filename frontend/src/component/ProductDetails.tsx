@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { ShoppingCart, Phone } from "lucide-react";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFetchProductByIdQuery } from "../redux/features/product/productApi";
 import { addToCart } from "../redux/cart/cartSlice";
 import DeliveryInfo from "./DeliveryInfo";
@@ -16,19 +16,24 @@ import {
   useRemoveFavoriteMutation,
   useGetFavoritesQuery,
 } from "../redux/favorites/favoriteApi";
+import type { RootState } from "../redux/store";
 
 const ProductDetails = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch();
-  const {
-    data: product,
-    isLoading,
-    error,
-  } = useFetchProductByIdQuery(id || "");
+
+  // ⛳ Get logged-in user
+  const user = useSelector((state: RootState) => state.auth.user);
+  const userId = user?._id;
+
+  const { data: product, isLoading, error } = useFetchProductByIdQuery(id!); // ✅ ensure non-null
+
   const [mainImage, setMainImage] = useState("");
 
   // 🔁 Favorite state and actions
-  const { data: favoriteData, isLoading: favLoading } = useGetFavoritesQuery();
+  const { data: favoriteData, isLoading: favLoading } =
+    useGetFavoritesQuery(userId); // ✅ passed userId here
+
   const [addFavorite] = useAddFavoriteMutation();
   const [removeFavorite] = useRemoveFavoriteMutation();
   const [favoriteSet, setFavoriteSet] = useState<Set<string>>(new Set());
@@ -70,8 +75,8 @@ const ProductDetails = () => {
       addToCart({
         id: product._id,
         name: product.title,
-        category: product.category,
-        price: product.price,
+        category: (product as any).category, // ✅ or update Product type
+        price: Number(product.price), // ✅ ensure number type
         image: product.image?.[0],
         quantity: 1,
       })

@@ -1,7 +1,5 @@
 import {
   AdminSidebar,
-  Analytics,
-  DashboardOverview,
   OrderManagement,
   ProductManagement,
   UserManagement,

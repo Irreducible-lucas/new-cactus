@@ -11,9 +11,17 @@ const Frame = () => {
   const frameProducts =
     products?.filter((p) => p.productType.toLowerCase() === "frame") || [];
 
-  // Shuffle and take first N
+  // Shuffle and map to match ProductSlider type
   const getRandomSubset = (arr: typeof frameProducts, count: number) => {
-    return [...arr].sort(() => Math.random() - 0.5).slice(0, count);
+    return [...arr]
+      .sort(() => Math.random() - 0.5)
+      .slice(0, count)
+      .map((product) => ({
+        id: product._id, // assuming _id is string
+        title: product.title,
+        image: Array.isArray(product.image) ? product.image[0] : product.image,
+        price: product.price,
+      }));
   };
 
   const randomBestSellers = getRandomSubset(frameProducts, 6);

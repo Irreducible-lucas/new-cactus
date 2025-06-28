@@ -11,9 +11,17 @@ const Furniture = () => {
   const furnitureProducts =
     products?.filter((p) => p.productType.toLowerCase() === "furniture") || [];
 
-  // Shuffle and take first N
+  // Shuffle and map to match ProductSlider type
   const getRandomSubset = (arr: typeof furnitureProducts, count: number) => {
-    return [...arr].sort(() => Math.random() - 0.5).slice(0, count);
+    return [...arr]
+      .sort(() => Math.random() - 0.5)
+      .slice(0, count)
+      .map((product) => ({
+        id: product._id, // ensure id is a string
+        title: product.title,
+        image: Array.isArray(product.image) ? product.image[0] : product.image,
+        price: product.price,
+      }));
   };
 
   const randomBestSellers = getRandomSubset(furnitureProducts, 6);

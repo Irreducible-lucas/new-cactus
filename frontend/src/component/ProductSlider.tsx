@@ -3,7 +3,7 @@ import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
 
 export type Product = {
-  id: number;
+  id: string; // Changed from number to string
   title: string;
   image: string;
   price: string;

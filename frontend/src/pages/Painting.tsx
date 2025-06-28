@@ -1,4 +1,4 @@
-import { benz, paintingBg } from "../assets";
+import { paintingBg } from "../assets";
 import { CategoryBanner, Infofeatures, SignUpBanner } from "../component";
 import AllTab from "../component/AllTab";
 import ProductSlider from "../component/ProductSlider";
@@ -18,6 +18,14 @@ const Painting = () => {
 
   const randomBestSellers = getRandomSubset(paintingProducts, 6);
 
+  // Map products to match ProductSlider's expected shape
+  const mappedBestSellers = randomBestSellers.map((product) => ({
+    id: product._id, // assuming _id is a string
+    title: product.title,
+    image: Array.isArray(product.image) ? product.image[0] : product.image,
+    price: product.price,
+  }));
+
   return (
     <div>
       <CategoryBanner
@@ -36,7 +44,7 @@ const Painting = () => {
       ) : (
         <ProductSlider
           title="Best Selling Paintings"
-          products={randomBestSellers}
+          products={mappedBestSellers}
         />
       )}
 

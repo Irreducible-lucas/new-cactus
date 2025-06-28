@@ -42,7 +42,6 @@ const AddProduct = () => {
     const { id, value } = e.target;
 
     setFormData((prev) => {
-      // Reset tag if type changes
       if (id === "productType") {
         return {
           ...prev,
@@ -58,10 +57,11 @@ const AddProduct = () => {
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
+    const files = e.target.files;
+    if (files && files.length > 0) {
       setFormData((prev) => ({
         ...prev,
-        images: Array.from(e.target.files),
+        images: Array.from(files),
       }));
     }
   };
@@ -134,7 +134,6 @@ const AddProduct = () => {
             </div>
           ))}
 
-          {/* Product Type Select */}
           <div className="grid w-full items-center gap-1.5">
             <Label htmlFor="productType">Product Type</Label>
             <select
@@ -152,7 +151,6 @@ const AddProduct = () => {
             </select>
           </div>
 
-          {/* Dynamic Product Tag Select */}
           {formData.productType && (
             <div className="grid w-full items-center gap-1.5">
               <Label htmlFor="productTag">Product Tag</Label>
@@ -173,7 +171,6 @@ const AddProduct = () => {
             </div>
           )}
 
-          {/* Image Upload */}
           <div className="grid w-full items-center gap-1.5">
             <Label htmlFor="images">Upload Images (Multiple)</Label>
             <Input

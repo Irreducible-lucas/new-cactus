@@ -1,4 +1,3 @@
-// Navbar.tsx
 import { useEffect, useState } from "react";
 import {
   Menu,
@@ -15,8 +14,19 @@ import type { RootState } from "../redux/store";
 import { clearUser as logoutAction } from "../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import AnimatedLogo from "./AnimatedLogo";
+import type { ReactNode } from "react";
 
-const allNavItems = [
+// ✅ Define nav item type
+type NavItem = {
+  label: string;
+  href: string;
+  showInTopRight?: boolean;
+  showInDrawer?: boolean;
+  icon?: ReactNode;
+  className?: string;
+};
+
+const allNavItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Explore", href: "/explores" },
   { label: "Frame", href: "/frame" },
@@ -97,7 +107,7 @@ export default function Navbar() {
     }
   };
 
-  const rightNavItems = user
+  const rightNavItems: NavItem[] = user
     ? [
         {
           label:
@@ -197,7 +207,7 @@ export default function Navbar() {
                 key={index}
                 href={item.href}
                 className={`text-sm font-semibold flex items-center space-x-1 ${
-                  item.className || ""
+                  item.className ?? ""
                 }`}
               >
                 {item.icon || <span>{item.label}</span>}
@@ -239,11 +249,7 @@ export default function Navbar() {
             {allNavItems
               .filter((item) => !item.showInTopRight)
               .map((item, index) => {
-                const isActive =
-                  currentPath === item.href ||
-                  (currentPath === "/" && item.href === "./") ||
-                  (!allNavItems.some((nav) => nav.href === currentPath) &&
-                    item.href === "./");
+                const isActive = currentPath === item.href;
                 return (
                   <li key={index}>
                     <a

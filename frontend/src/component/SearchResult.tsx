@@ -4,6 +4,14 @@ import { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cart/cartSlice";
 
+interface Product {
+  _id: string;
+  title: string;
+  image: string[];
+  price: string;
+  category?: "frame" | "painting" | "decor" | "furniture"; // ✅ category made optional
+}
+
 const SearchResult = () => {
   const dispatch = useDispatch();
 
@@ -18,7 +26,7 @@ const SearchResult = () => {
     new URLSearchParams(location.search).get("q")?.toLowerCase() || "";
 
   const filteredProducts = useMemo(() => {
-    return allProducts.filter((product) =>
+    return allProducts.filter((product: Product) =>
       product.title.toLowerCase().includes(searchQuery)
     );
   }, [allProducts, searchQuery]);
@@ -57,7 +65,7 @@ const SearchResult = () => {
 
       {!isLoading && !error && filteredProducts.length > 0 && (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {filteredProducts.map((product) => (
+          {filteredProducts.map((product: Product) => (
             <div key={product._id} className="group relative">
               <Link to={`/product-details/${product._id}`}>
                 <div className="relative overflow-hidden rounded-xl shadow-sm">
@@ -86,9 +94,10 @@ const SearchResult = () => {
                       addToCart({
                         id: product._id,
                         name: product.title,
-                        price: product.price,
+                        price: Number(product.price),
                         image: product.image[0],
                         quantity: 1,
+                        category: product.category ?? "decor", // ✅ fallback
                       })
                     )
                   }

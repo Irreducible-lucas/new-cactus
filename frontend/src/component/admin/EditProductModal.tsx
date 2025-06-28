@@ -1,7 +1,31 @@
 import { useEffect, useState } from "react";
+import type { ChangeEvent } from "react";
 import { useUpdateProductMutation } from "../../redux/features/product/productApi";
 
-const EditProductModal = ({ isOpen, onClose, product }) => {
+interface Product {
+  _id: string;
+  title: string;
+  price: string;
+  oldPrice?: string;
+  size: { label: string };
+  productType: string;
+  productTag: string;
+  features: string[];
+  rating: number;
+  image: string[];
+}
+
+interface EditProductModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  product: Product | null;
+}
+
+const EditProductModal = ({
+  isOpen,
+  onClose,
+  product,
+}: EditProductModalProps) => {
   const [formData, setFormData] = useState({
     title: "",
     price: "",
@@ -10,7 +34,7 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
     productType: "",
     productTag: "",
     features: "",
-    rating: "",
+    rating: 0,
   });
 
   const [newImages, setNewImages] = useState<File[]>([]);
@@ -20,44 +44,57 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
   useEffect(() => {
     if (product) {
       setFormData({
-        ...product,
-        features: product.features?.join(", ") || "",
+        title: product.title,
+        price: product.price,
+        oldPrice: product.oldPrice || "",
         size: { label: product.size?.label || "" },
+        productType: product.productType,
+        productTag: product.productTag,
+        features: product.features?.join(", ") || "",
+        rating: product.rating,
       });
       setPreviewUrls(product.image || []);
     }
   }, [product]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "size") {
       setFormData((prev) => ({ ...prev, size: { label: value } }));
+    } else if (name === "rating") {
+      setFormData((prev) => ({ ...prev, rating: Number(value) }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
-  const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files);
-    setNewImages(files);
-    const previews = files.map((file) => URL.createObjectURL(file));
+  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
+
+    const fileArray = Array.from(files) as File[];
+    setNewImages(fileArray);
+
+    const previews = fileArray.map((file: File) => URL.createObjectURL(file));
     setPreviewUrls(previews);
   };
 
   const handleSubmit = async () => {
+    if (!product) return;
+
     try {
       const body = new FormData();
       body.append("title", formData.title);
       body.append("price", formData.price);
       body.append("oldPrice", formData.oldPrice || "");
-      body.append("rating", formData.rating);
+      body.append("rating", String(formData.rating));
       body.append("productType", formData.productType);
       body.append("productTag", formData.productTag);
       body.append("size", JSON.stringify({ label: formData.size.label }));
       body.append("features", formData.features);
 
       newImages.forEach((file) => {
-        body.append("image", file); // must match multer field
+        body.append("image", file);
       });
 
       await updateProduct({ id: product._id, updateData: body }).unwrap();
@@ -68,7 +105,7 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen || !product) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">

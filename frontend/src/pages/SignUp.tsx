@@ -9,6 +9,16 @@ import { auth, provider } from "../../firebase/firebase";
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/auth/authSlice";
 
+// Define the type of a User (update as needed based on your actual definition)
+type User = {
+  _id: string;
+  username: string;
+  email: string;
+  phone: string;
+  role: "user" | "admin";
+  photoURL: string | null;
+};
+
 type SignupFormData = {
   firstName: string;
   lastName: string;
@@ -32,7 +42,6 @@ export default function SignupPage() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
   const [notification, setNotification] = useState<{
     type: "error" | "success";
     message: string;
@@ -109,12 +118,12 @@ export default function SignupPage() {
       const result = await signInWithPopup(auth, provider);
       const firebaseUser = result.user;
 
-      const user = {
+      const user: User = {
         _id: firebaseUser.uid,
         username: firebaseUser.displayName || "Unnamed",
         email: firebaseUser.email || "",
         phone: firebaseUser.phoneNumber || "",
-        role: "user",
+        role: "user", // Explicitly typed
         photoURL: firebaseUser.photoURL,
       };
 
@@ -132,9 +141,7 @@ export default function SignupPage() {
   return (
     <div
       className="min-h-screen bg-cover bg-center"
-      style={{
-        backgroundImage: `url(${interior2})`,
-      }}
+      style={{ backgroundImage: `url(${interior2})` }}
     >
       <div className="flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full mx-auto bg-white p-8 shadow sm:rounded-lg">

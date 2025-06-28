@@ -8,6 +8,7 @@ interface Product {
   title: string;
   image: string[];
   price: string;
+  category: "frame" | "painting" | "decor" | "furniture"; // ✅ added category
 }
 
 interface ProductTabProps {
@@ -30,9 +31,10 @@ const ProductTab: React.FC<ProductTabProps> = ({
       addToCart({
         id: product._id,
         name: product.title,
-        price: product.price,
+        price: Number(product.price),
         image: product.image[0],
         quantity: 1,
+        category: product.category, // ✅ added this
       })
     );
   };
@@ -41,7 +43,6 @@ const ProductTab: React.FC<ProductTabProps> = ({
     <div className="p-6 flex flex-col items-center justify-center">
       <h2 className="text-2xl font-semibold text-[#1b1655] mb-4">{title}</h2>
 
-      {/* Tab Buttons */}
       <div className="flex flex-wrap gap-4 mb-6">
         {tabs.map((tab) => (
           <button
@@ -58,11 +59,10 @@ const ProductTab: React.FC<ProductTabProps> = ({
         ))}
       </div>
 
-      {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-6xl">
         {productData[selectedModel]?.length ? (
           productData[selectedModel]
-            .filter((product) => product._id) // ensure valid product
+            .filter((product) => product._id)
             .map((product) => (
               <div
                 key={product._id}
