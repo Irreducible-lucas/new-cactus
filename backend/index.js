@@ -7,16 +7,28 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true, limit: '25mb' }));
-app.use(cookieParser());
+// ✅ Allow multiple CORS origins (both local and deployed frontend)
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(',')
+  : ['http://localhost:5173', 'https://new-cactus.vercel.app'];
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 
-// Routes
+// ✅ Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true, limit: '25mb' }));
+app.use(cookieParser());
+
+// ✅ Routes
 const authRoutes = require('./src/user/user.routes');
 const productRoutes = require('./src/product/product.route');
 const reviewsRoutes = require('./src/reviews/review.route');
@@ -29,7 +41,7 @@ app.use('/api/reviews', reviewsRoutes);
 app.use('/api/favorites', favoritesRoutes);
 app.use('/api/orders', orderRoutes);
 
-// Test Route
+// ✅ Test Route
 app.get('/', (req, res) => {
   res.send('API server is running on port ' + port);
 });
@@ -39,11 +51,11 @@ app.use((err, req, res, next) => {
   console.error('❌ Global Error:', JSON.stringify(err, Object.getOwnPropertyNames(err)));
   res.status(err.status || 500).json({
     message: err.message || 'Internal Server Error',
-    stack: err.stack,
+    stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
   });
 });
 
-// MongoDB Connection & Server Start
+// ✅ MongoDB Connection & Server Start
 async function main() {
   try {
     await mongoose.connect(process.env.DB_URL, {});
