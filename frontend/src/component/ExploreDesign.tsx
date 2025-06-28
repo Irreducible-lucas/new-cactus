@@ -1,20 +1,15 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useKeenSlider } from "keen-slider/react";
-import { Link } from "react-router-dom";
-
 import { useFetchAllProductsQuery } from "../redux/features/product/productApi";
-
 import {
   useGetFavoritesQuery,
   useAddFavoriteMutation,
   useRemoveFavoriteMutation,
 } from "../redux/favorites/favoriteApi";
-
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import "keen-slider/keen-slider.min.css";
-
 import type { RootState } from "../redux/store";
 
 interface Product {
@@ -116,7 +111,7 @@ const ExploreDesign = () => {
         {latestProducts.map((product) => (
           <div key={product._id} className="keen-slider__slide">
             <div className="group bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
-              <Link to={`/product-details/${product._id}`}>
+              <a href={`/product-details/${product._id}`}>
                 <div className="relative">
                   <img
                     src={
@@ -150,7 +145,7 @@ const ExploreDesign = () => {
                     {product.title}
                   </h3>
                 </div>
-              </Link>
+              </a>
             </div>
           </div>
         ))}

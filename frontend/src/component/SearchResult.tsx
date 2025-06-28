@@ -85,7 +85,7 @@ const SearchResult = () => {
                   </h3>
                 </Link>
                 <p className="text-sm font-semibold text-indigo-900 mt-1">
-                  ${product.price}
+                  ₦{product.price}
                 </p>
 
                 <button

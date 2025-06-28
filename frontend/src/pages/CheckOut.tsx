@@ -16,9 +16,7 @@ export default function Checkout() {
     (sum, item) => sum + Number(item.price) * item.quantity,
     0
   );
-  const shipping = subtotal > 200 ? 0 : 15.99;
-  const tax = subtotal * 0.08;
-  const total = subtotal + shipping + tax;
+  const total = subtotal;
 
   const publicKey = "pk_live_ef447a62083e421df914f403330c64e4fdb9b960";
   const email = user?.email || "";
@@ -56,7 +54,7 @@ export default function Checkout() {
         <h2 className="text-2xl font-bold mb-4">
           You must be logged in to checkout.
         </h2>
-        <Link to="/login" className="text-blue-600 underline">
+        <Link to="/sign-in" className="text-blue-600 underline">
           Go to Login
         </Link>
       </div>
@@ -113,22 +111,12 @@ export default function Checkout() {
             <div className="space-y-2">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Shipping</span>
-                <span>
-                  {shipping === 0 ? "Free" : `$${shipping.toFixed(2)}`}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span>Tax (8%)</span>
-                <span>${tax.toFixed(2)}</span>
+                <span>₦{subtotal.toFixed(2)}</span>
               </div>
               <hr />
               <div className="flex justify-between font-bold text-lg">
                 <span>Total</span>
-                <span>${total.toFixed(2)}</span>
+                <span>₦{total.toFixed(2)}</span>
               </div>
             </div>
           </div>

@@ -22,7 +22,8 @@ const UserManagement = () => {
   const [updateUserRole, { isLoading: isUpdatingRole }] =
     useUpdateUserRoleMutation();
 
-  const users: User[] = data || [];
+  // ✅ FIXED: Safely extract user list from data response
+  const users: User[] = data?.data || [];
 
   const formatDate = (date: string) => {
     const parsedDate = new Date(date);

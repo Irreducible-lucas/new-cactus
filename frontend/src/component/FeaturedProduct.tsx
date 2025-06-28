@@ -1,7 +1,6 @@
 import React from "react";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
-import { Link } from "react-router-dom";
 import { useFetchRandomProductsQuery } from "../redux/features/product/productApi";
 
 const FeaturedProduct: React.FC = () => {
@@ -45,7 +44,7 @@ const FeaturedProduct: React.FC = () => {
               key={product._id}
               className="keen-slider__slide bg-white rounded shadow-md transition-transform hover:scale-105"
             >
-              <Link to={`/product-details/${product._id}`}>
+              <a href={`/product-details/${product._id}`}>
                 <img
                   src={product.image?.[0] || "/default.jpg"}
                   alt={product.title || "Product Image"}
@@ -62,7 +61,7 @@ const FeaturedProduct: React.FC = () => {
                     {product.productTag || "No Tag"}
                   </span>
                 </div>
-              </Link>
+              </a>
             </div>
           ))}
         </div>
