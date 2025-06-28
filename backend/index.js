@@ -7,13 +7,16 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const port = process.env.PORT || 5000;
 
-// ✅ Allow multiple CORS origins (both local and deployed frontend)
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',')
-  : ['http://localhost:5173', 'https://new-cactus.vercel.app'];
+// ✅ Define allowed origins (you can also set this in your .env file)
+const allowedOrigins = [
+  'http://localhost:5173',                     // Local dev
+  'https://cactus-ecommerce-three.vercel.app'  // Your deployed frontend
+];
 
+// ✅ CORS Configuration
 app.use(cors({
   origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl/postman)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -23,7 +26,7 @@ app.use(cors({
   credentials: true,
 }));
 
-// ✅ Middleware
+// ✅ Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: '25mb' }));
 app.use(cookieParser());
@@ -55,7 +58,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ✅ MongoDB Connection & Server Start
+// ✅ Connect to MongoDB and start the server
 async function main() {
   try {
     await mongoose.connect(process.env.DB_URL, {});
