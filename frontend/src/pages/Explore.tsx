@@ -16,7 +16,7 @@ const Explore = () => {
         name="Explore"
         description="Discover original logos, wall art, and more—designed by artists and made for you. Explore everything we offer to find the perfect fit for your brand or space."
         image={exploreBg}
-        linkLabel="Shop Wall Art"
+        linkLabel="Explore Product"
         className="bg-blue-800 text-white"
       />
       <ExploreFrame />

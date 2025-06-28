@@ -32,7 +32,7 @@ const Frame = () => {
         name="Frames"
         description="Elevate your photos, art prints, and memories with our handcrafted frames. From modern minimalism to timeless elegance, our collection ensures your walls tell your story beautifully. Built with premium materials to complement every space."
         image={frameBg}
-        linkLabel="Shop Wall Art"
+        linkLabel="Shop Frame"
         className="bg-blue-800 text-white"
       />
 

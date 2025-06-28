@@ -32,7 +32,7 @@ const Furniture = () => {
         name="Furniture"
         description="Discover furniture that combines comfort, style, and durability. From cozy sofas to elegant dining sets and versatile storage solutions, each piece is thoughtfully designed to make everyday living effortlessly stylish."
         image={furnitureBg}
-        linkLabel="Shop Wall Art"
+        linkLabel="Shop Furniture"
         className="bg-blue-800 text-white"
       />
       <AllTab showFurniture={true} />

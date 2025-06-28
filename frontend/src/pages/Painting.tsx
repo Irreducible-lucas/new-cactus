@@ -32,7 +32,7 @@ const Painting = () => {
         name=" Paintings"
         description="Add emotion, depth, and personality to your home with our curated selection of paintings. Whether you're drawn to abstract, realism, or cultural pieces, our artwork brings soul and sophistication to your walls."
         image={paintingBg}
-        linkLabel="Shop Wall Art"
+        linkLabel="Shop Painting"
         className="bg-blue-800 text-white"
       />
       <AllTab showPainting={true} />

@@ -32,7 +32,7 @@ const HomeDecor = () => {
         name="Home Decor"
         description="Transform your house into a home with our unique home decor collection. From statement pieces to subtle accents, explore decor items that reflect your style and enhance your living space’s charm and warmth."
         image={homedecorBg}
-        linkLabel="Shop Wall Art"
+        linkLabel="Shop Home Decor"
         className="bg-blue-800 text-white"
       />
       <AllTab showHomeDecor={true} />
