@@ -16,24 +16,30 @@ interface User {
   createdAt: string;
 }
 
+interface UsersApiResponse {
+  data?: User[];
+  success?: boolean;
+  message?: string;
+}
+
 const UserManagement = () => {
   const { data, isLoading, isError } = useGetUsersQuery();
   const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
   const [updateUserRole, { isLoading: isUpdatingRole }] =
     useUpdateUserRoleMutation();
 
-  // ✅ FIXED: Safely extract user list from data response
-  const users: User[] = data?.data || [];
+  const users: User[] = (data as UsersApiResponse)?.data || [];
 
   const formatDate = (date: string) => {
-    const parsedDate = new Date(date);
-    return isNaN(parsedDate.getTime())
-      ? "Invalid Date"
-      : parsedDate.toLocaleDateString();
+    try {
+      return new Date(date).toLocaleDateString();
+    } catch {
+      return "Invalid Date";
+    }
   };
 
   const handleDelete = async (userId: string) => {
-    if (confirm("Are you sure you want to delete this user?")) {
+    if (window.confirm("Are you sure you want to delete this user?")) {
       try {
         await deleteUser(userId).unwrap();
         alert("User deleted successfully.");
