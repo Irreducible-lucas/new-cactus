@@ -1,5 +1,3 @@
-// src/redux/auth/authApi.ts
-
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getBaseUrl } from '../../util/baseURL';
 
@@ -53,7 +51,7 @@ const authApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['User'],
+  tagTypes: ['Users'], // ✅ changed from 'User' to 'Users'
   endpoints: (builder) => ({
     registerUser: builder.mutation<{ success: boolean; message: string }, NewUser>({
       query: (newUser) => ({
@@ -91,7 +89,7 @@ const authApi = createApi({
 
     getUsers: builder.query<User[], void>({
       query: () => ({ url: '/users', method: 'GET' }),
-      providesTags: ['User'],
+      providesTags: ['Users'], // ✅ changed
     }),
 
     deleteUser: builder.mutation<{ success: boolean; message: string }, string>({
@@ -99,7 +97,7 @@ const authApi = createApi({
         url: `/users/${userId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: ['Users'], // ✅ changed
     }),
 
     updateUserRole: builder.mutation<{ success: boolean; message: string }, UpdateUserRolePayload>({
@@ -108,7 +106,7 @@ const authApi = createApi({
         method: 'PUT',
         body: { role },
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: ['Users'], // ✅ changed
     }),
 
     editProfile: builder.mutation<{ success: boolean; user: User }, ProfileData>({
@@ -117,7 +115,7 @@ const authApi = createApi({
         method: 'PATCH',
         body: profileData,
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: ['Users'], // optional but helpful if admin can edit others
     }),
 
     changePassword: builder.mutation<{ success: boolean; message: string }, ChangePasswordPayload>({
