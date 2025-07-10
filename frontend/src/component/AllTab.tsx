@@ -91,7 +91,7 @@ const AllTab: React.FC<AllTabProps> = ({
           ) : (
             frameData && (
               <ProductTab
-                title="Shop iPhone Cases"
+                title="Shop Frames"
                 {...transformData(
                   frameData,
                   ["Acrylic", "Frameless", "Frame", "Wood"],

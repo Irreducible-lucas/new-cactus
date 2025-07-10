@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 const SignUpBanner: React.FC = () => {
   return (
     <section className="relative bg-yellow-100 py-12 pb-20 text-center overflow-hidden">
-      {/* Decorative emojis/icons */}
+      {/* Decorative emojis/icons
       <div className="absolute lg:left-10 lg:top-10 top-4 left-4  text-5xl z-10">
         😊
       </div>
       <div className="absolute lg:right-10 lg:top-12 bottom-10 right-4 text-3xl z-10">
         ✨
-      </div>
+      </div> */}
 
       {/* Text content */}
       <h2 className="text-2xl font-bold text-[#0c0745] mb-4 z-10 relative">
