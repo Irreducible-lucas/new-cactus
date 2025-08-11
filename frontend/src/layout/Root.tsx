@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Outlet } from "react-router-dom";
+// import { Outlet } from "react-router-dom";
 import { Footer, Nav } from "../component";
 
 const Root = () => (
@@ -12,9 +12,7 @@ const Root = () => (
   >
     <Nav />
 
-    <div className={``}>
-      <Outlet />
-    </div>
+    <div className={``}>{/* <Outlet /> */}</div>
 
     <Footer />
   </motion.div>
